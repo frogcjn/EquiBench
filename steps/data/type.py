@@ -6,7 +6,7 @@ from datasets import DatasetDict, Dataset, load_dataset, get_dataset_config_name
 
 class EquiBenchDatasets:
     def __init__(self):
-        self.path = "frogcjn/EquiBench-Datasets"
+        self.hf_path = "anjiangwei/EquiBench-Datasets"
 
     @staticmethod
     def check_huggingface_login():
@@ -17,14 +17,18 @@ class EquiBenchDatasets:
 
     @property
     def config_names(self) -> list[str]:
-        config_names = get_dataset_config_names(self.path)
-        print(f"Dataset configurations: {config_names}")
+        """Retrieves the configuration names for the dataset.
+
+            list[str]: A list of configuration names for the dataset.
+        """
+        config_names = get_dataset_config_names(self.hf_path)
+        print(f"{self.hf_path} Dataset configurations: {config_names}")
         return config_names
 
     def load(self, config_name: str) -> Dataset:
         """Load and save a specific configuration of the EquiBench dataset"""
-        dataset_dict = cast(DatasetDict, load_dataset("frogcjn/EquiBench-Datasets", name=config_name))
-        print(f"Loading configuration: {config_name}")
+        dataset_dict = cast(DatasetDict, load_dataset(self.hf_path, name=config_name))
+        print(f"{self.hf_path} Loading configuration: {config_name}")
         assert dataset_dict.keys() == {"train"}
         dataset = dataset_dict["train"]
         print(dataset)
