@@ -199,4 +199,5 @@ original/oj/eval_output*/p*.json
 # hintrc
 .hintrc
 
-data
+/data
+datasets

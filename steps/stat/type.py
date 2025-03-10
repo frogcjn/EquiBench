@@ -9,7 +9,7 @@ import pandas as pd
 from scipy.stats import pearsonr
 from sklearn import linear_model
 
-from type import FileName, Problem, Pair, Category, PromptType, PreprocessFileName, EvalFileName
+from type import FileName, Problem, Pair, Category, PromptType, DataFileName, EvalFileName
 
 class PreprocessData:
     def __init__(self, path: Path):
@@ -17,8 +17,8 @@ class PreprocessData:
     
     def load(self):
         logging.info(f"PreprocessData(preprocess_path={self.path}).load()")
-        self.pairs =    {category: {pair   .pair_id   : pair    for pair    in Pair   .load(category=category, json_path=self.path / category.value / PreprocessFileName.PAIRS_JSON   .value)} for category in Category.all_eval_categories()}
-        self.problems = {category: {problem.problem_id: problem for problem in Problem.load(category=category, json_path=self.path / category.value / PreprocessFileName.PROBLEMS_JSON.value)} for category in Category.all_eval_categories()}
+        self.pairs =    {category: {pair   .pair_id   : pair    for pair    in Pair   .load(category=category, json_path=self.path / category.value / DataFileName.PAIRS_JSON   .value)} for category in Category.all_eval_categories()}
+        self.problems = {category: {problem.problem_id: problem for problem in Problem.load(category=category, json_path=self.path / category.value / DataFileName.PROBLEMS_JSON.value)} for category in Category.all_eval_categories()}
 
 class EvalData:
     def __init__(self, eval_path: Path):

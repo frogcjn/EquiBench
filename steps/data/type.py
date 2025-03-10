@@ -11,6 +11,7 @@ class EquiBenchDatasets:
     @staticmethod
     def check_huggingface_login():
         """Check Hugging Face CLI login status"""
+        print("Check Hugging Face CLI login status:")
         if os.system("huggingface-cli whoami") != 0:
             raise RuntimeError("Please log in to Hugging Face using 'huggingface-cli login'.")
 
@@ -35,5 +36,3 @@ class EquiBenchDatasets:
         json_path = save_path / f"pairs.json"
         dataset.to_json(json_path, orient="records", lines=False, indent=4)
         print(f"Saved {config_name} to {json_path}")
-
-__all__ = ["EquiBenchDatasets"]

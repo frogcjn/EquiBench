@@ -53,13 +53,11 @@ class MossFileName(Enum):
 class organizeFileName(Enum):
     MAP_JSON = "organize_map.json"
 
-class PreprocessFileName(Enum):
-    PAIRS_CSV      = "preprocess_pairs.csv"
-    PROBLEMS_JSON  = "preprocess_problems.json"
-    PAIRS_JSON     = "preprocess_pairs.json"
+class DataFileName(Enum):
+    PAIRS_JSON     = "pairs.json"
 
 class EvalFileName(Enum):
-    EVAL_MODEL_TEMPLATE = "eval_prompt_{prompt_type_name}_model_{model}"
+    EVAL_MODEL_TEMPLATE = "{prompt_type_name}/{model_family}/{model}"
     PAIR_CSV            = "eval_pairs.csv"
     PAIR_JSON           = "eval_pairs.json"
 
@@ -77,4 +75,4 @@ class InfoDictKey(Enum):
     TARGET         = "target"
     HEAD_COMMENT   = "head_comment"
 
-__all__ = ["DCEName", "TVEName", "OJName", "STOKEName", "OriginalDataDirName", "MossFileName", "organizeFileName", "PreprocessFileName", "EvalFileName", "FileName", "InfoDictKey"]  # Limits what gets exported with `from util import *
+__all__ = ["DCEName", "TVEName", "OJName", "STOKEName", "OriginalDataDirName", "MossFileName", "organizeFileName", "DataFileName", "EvalFileName", "FileName", "InfoDictKey"]  # Limits what gets exported with `from util import *

@@ -43,14 +43,18 @@ f"""Prompt(
         return prompt
 
     def format(self, pair: Pair):
-        assert pair.program_1_path, "pair.program_1_path should exist"
-        assert pair.program_2_path, "pair.program_2_path should exist"
+        program_1_code = pair.program_1_code
+        if program_1_code is None:
+            assert pair.program_1_path, "pair.program_1_path should exist"
 
-        with open(file=pair.program_1_path, mode="r") as file:
-            program_1_code = file.read()
-
-        with open(file=pair.program_2_path, mode="r") as file:
-            program_2_code = file.read()
+            with open(file=pair.program_1_path, mode="r") as file:
+                program_1_code = file.read()
+        
+        program_2_code = pair.program_2_code
+        if program_2_code is None:
+            assert pair.program_2_path, "pair.program_2_path should exist"
+            with open(file=pair.program_2_path, mode="r") as file:
+                program_2_code = file.read()
 
         match pair.category:
             case Category.STOKE:
@@ -63,9 +67,11 @@ f"""Prompt(
                     live_out       = pair.problem_live_out 
                 )
             case Category.OJ_V | Category.OJ_A | Category.OJ_VA:
-                assert pair.problem_html_path, "pair.problem_html_path should exist"
-                with open(file=pair.problem_html_path, mode="r") as file:
-                    problem_html_content = file.read()
+                problem_html_content = pair.problem_html_content
+                if problem_html_content is None:
+                    assert pair.problem_html_path, "pair.problem_html_path should exist"
+                    with open(file=pair.problem_html_path, mode="r") as file:
+                        problem_html_content = file.read()
 
                 original_prompt_str = self.prompt.format(
                     true_label     = self.true_label, 
